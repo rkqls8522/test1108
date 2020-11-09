@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  <!-- 1.com.gabin.mapper.ManageMapper 인터페이스 선언
+  2. root-context.xml mybatis:scan 태그로 기본 패키지 지정
+  3. com.gabin.mapper.manageMapper.xml 실행 작성 -->
+ <mapper namespace="com.gabin.mapper.ManageMapper">
+ 	<select id="list" resultType="com.gabin.VO.Manage">
+ 		<![CDATA[
+ 			select * from tbl_manage_person where mpno>0		
+ 		]]>
+ 	</select>
+ 	<insert id="insert">
+ 		insert into tbl_manage_person values(num.NEXTVAL,#{sname},#{spassword},#{father_name},#{mather_name},
+ 		#{descendant_name},#{juso},#{phone},#{family_num})
+	</insert>
+	<select id="read" resultType="com.gabin.VO.Manage">
+		select * from tbl_manage_person where mpno = #{mpno}
+	</select>
+	<delete id="delete">
+		delete from tbl_manage_person where mpno = #{mpno}
+	</delete>
+	<update id="update">
+		update tbl_manage_person set sname= #{sname}, spassword = #{spassword}, father_name = #{father_name}, mather_name = #{mather_name},
+			descendant_name = #{descendant_name}, juso = #{juso}, phone = #{phone}, family_num = #{family_num} 
+			where mpno = #{mpno}
+	</update>
+	<select id="search" resultType="com.gabin.VO.Manage">
+		select  juso, sum(family_num) count from tbl_manage_person group by juso
+	</select>
+  </mapper>
